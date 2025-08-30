@@ -1,0 +1,21 @@
+[[source]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+verify_ssl = true
+name = "tuna"
+
+[packages]
+django = "*"
+djangorestframework = "*"
+django-debug-toolbar = "*"
+djoser = "*"
+djangorestframework-simplejwt = "*"
+drf-nested-routers = "*"
+drf-yasg = "*"
+psycopg2-binary = "*"
+django-filter = "*"
+django-cors-headers = "*"
+
+[dev-packages]
+
+[requires]
+python_version = "3.13"
