@@ -12,7 +12,8 @@ from .filters import TaskFilter
 from .models import Tag, Task, TaskCategory, SubTask, TaggedItem
 from .permissions import IsAuthenticatedAndOwner
 from .serializers import TaskCategorySerializer, TaskSerializer, TaskCreateSerializer, \
-    TaskUpdateSerializer, SubTaskSerializer, TagSerializer, TaggedItemSerializer, FullTaskCreateSerializer, OptimizedTaskUpdateSerializer
+    TaskUpdateSerializer, SubTaskSerializer, TagSerializer, TaggedItemSerializer, \
+    FullTaskCreateSerializer, OptimizedTaskUpdateSerializer
 
 
 class TaskCategoryViewSet(ModelViewSet):
@@ -45,6 +46,8 @@ class TaskViewSet(ModelViewSet):
 
         date_param = self.request.query_params.get("scheduled_date")
         if self.action == "list" and not date_param:
+            #this will return the tasks for today, tommorow(for upcomming tasks),
+            #And tasks whose deadlines are still ongoing.
             today = date.today()
             queryset = queryset.filter(
                 Q(scheduled_date__in=[today, (today + timedelta(days=1))]) | 

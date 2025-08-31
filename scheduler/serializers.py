@@ -70,7 +70,6 @@ class TaskSerializer(serializers.ModelSerializer):
         if hasattr(obj, "prefetched_tagged_items"):
             tagged_items = obj.prefetched_tagged_items
         else:
-            warnings.warn("prefetched_tagged_items is not available!")
             tagged_items = obj.tagged_items.select_related('tag').all()
 
         tags = [item.tag for item in tagged_items]
@@ -209,23 +208,15 @@ class FullTaskCreateSerializer(serializers.ModelSerializer):
         return task
     
 
-#clude
-
-class SubTaskUpdateSerializer(serializers.Serializer):
-    """سریالایزر برای آپدیت زیرتسک‌ها"""
-    id = serializers.IntegerField(required=False, allow_null=True)
-    title = serializers.CharField(max_length=255)
-    is_completed = serializers.BooleanField(default=False)
 
 
 class OptimizedTaskUpdateSerializer(serializers.ModelSerializer):
-    """سریالایزر بهینه برای آپدیت تسک‌ها"""
     tags = serializers.ListField(
         child=serializers.IntegerField(), 
         required=False, 
         allow_empty=True
     )
-    subTasks = SubTaskUpdateSerializer(many=True, required=False, allow_empty=True)
+    subTasks = SubTaskSerializer(many=True, required=False, allow_empty=True)
 
     class Meta:
         model = Task
@@ -239,36 +230,30 @@ class OptimizedTaskUpdateSerializer(serializers.ModelSerializer):
         sub_tasks = validated_data.pop("subTasks", None)
 
         with transaction.atomic():
-            # آپدیت فیلدهای اصلی Task
+
             for attr, value in validated_data.items():
                 setattr(instance, attr, value)
             instance.save()
 
-            # مدیریت بهینه Tags
             if tags is not None:
                 self._update_tags_optimized(instance, tags)
 
-            # مدیریت بهینه SubTasks
             if sub_tasks is not None:
                 self._update_subtasks_optimized(instance, sub_tasks)
 
-        # refresh instance تا روابط جدید لود شوند
         instance.refresh_from_db()
         return instance
 
     def _update_tags_optimized(self, task, new_tags):
-        """آپدیت بهینه تگ‌ها - فقط تغییرات لازم"""
         current_tags = set(
             TaggedItem.objects.filter(task=task).values_list('tag_id', flat=True)
         )
         new_tags_set = set(new_tags)
 
-        # حذف تگ‌های اضافی
         tags_to_remove = current_tags - new_tags_set
         if tags_to_remove:
             TaggedItem.objects.filter(task=task, tag_id__in=tags_to_remove).delete()
 
-        # اضافه کردن تگ‌های جدید
         tags_to_add = new_tags_set - current_tags
         if tags_to_add:
             tagged_items = [
@@ -278,8 +263,6 @@ class OptimizedTaskUpdateSerializer(serializers.ModelSerializer):
             TaggedItem.objects.bulk_create(tagged_items)
 
     def _update_subtasks_optimized(self, task, new_subtasks):
-        """آپدیت بهینه زیرتسک‌ها با ID"""
-        # دریافت زیرتسک‌های فعلی
         current_subtasks = {
             st.id: st for st in SubTask.objects.filter(parent_task=task)
         }
@@ -291,16 +274,13 @@ class OptimizedTaskUpdateSerializer(serializers.ModelSerializer):
         for subtask_data in new_subtasks:
             subtask_id = subtask_data.get('id')
             
-            # اگر ID وجود داره و زیرتسک موجود است
             if subtask_id and subtask_id in current_subtasks:
-                # آپدیت زیرتسک موجود
                 subtask_instance = current_subtasks[subtask_id]
                 subtask_instance.title = subtask_data.get('title', subtask_instance.title)
                 subtask_instance.is_completed = subtask_data.get('is_completed', subtask_instance.is_completed)
                 subtasks_to_update.append(subtask_instance)
                 updated_ids.add(subtask_id)
             else:
-                # ایجاد زیرتسک جدید
                 subtasks_to_create.append(
                     SubTask(
                         parent_task=task,
@@ -309,18 +289,15 @@ class OptimizedTaskUpdateSerializer(serializers.ModelSerializer):
                     )
                 )
 
-        # حذف زیرتسک‌هایی که دیگر در لیست نیستند
         subtasks_to_delete = set(current_subtasks.keys()) - updated_ids
         if subtasks_to_delete:
             SubTask.objects.filter(id__in=subtasks_to_delete).delete()
 
-        # آپدیت bulk زیرتسک‌های موجود
         if subtasks_to_update:
             SubTask.objects.bulk_update(
                 subtasks_to_update, 
                 ['title', 'is_completed']
             )
 
-        # ایجاد bulk زیرتسک‌های جدید
         if subtasks_to_create:
             SubTask.objects.bulk_create(subtasks_to_create)
