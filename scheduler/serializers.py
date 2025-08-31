@@ -1,8 +1,7 @@
-from django.db import transaction
+from django.db import transaction, IntegrityError
 from rest_framework import serializers
 from rest_framework.exceptions import ValidationError
 from scheduler.models import Tag, TaskCategory, Task, SubTask, TaggedItem
-import warnings
 
 
 
@@ -25,7 +24,7 @@ class TaskCategorySerializer(serializers.ModelSerializer):
                 **validated_data
             )
             return category
-        except:
+        except IntegrityError:
             raise ValidationError({"detail": "The Category is already exists."})
 
 

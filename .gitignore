@@ -5,8 +5,9 @@ env.bak/
 venv.bak/
 
 __pycache__/
-*.py[cod]
-*$py.class
+*.pyc
+*.pyo
+*.pyd
 
 .ipynb_checkpoints
 
