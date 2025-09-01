@@ -143,9 +143,8 @@ class OptimizedTaskUpdateView(UpdateAPIView):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        # فقط تسک‌های مربوط به کاربر جاری
-        return Task.objects.filter(user=self.request.user).prefetch_related(
-            'subTasks', 'tagged_items'
+        return Task.objects.filter(user=self.request.user).select_related("category").prefetch_related(
+            'subTasks', 'tagged_items__tag'
         )
 
     def update(self, request, *args, **kwargs):
@@ -156,13 +155,10 @@ class OptimizedTaskUpdateView(UpdateAPIView):
         serializer.is_valid(raise_exception=True)
         updated_instance = serializer.save()
 
-        # بازگرداندن task کامل با روابط برای فرانت‌اند
-        # استفاده از TaskSerializer که قبلاً داری
         response_serializer = TaskSerializer(updated_instance)
         
         return Response(response_serializer.data, status=status.HTTP_200_OK)
 
     def patch(self, request, *args, **kwargs):
-        # برای partial update
         kwargs['partial'] = True
         return self.update(request, *args, **kwargs)
