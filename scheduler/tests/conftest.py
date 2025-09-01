@@ -10,9 +10,12 @@ def api_client():
 
 @pytest.fixture
 def authentication(api_client):
-    def inner_function(**kwargs):
+    def inner_function(is_staff=False):
         user = User.objects.create_user(
-            **kwargs
+            username="user_test",
+            email="user@example.com",
+            password="password123",
+            is_staff=is_staff
         )
         api_client.force_authenticate(user=user)
         return user

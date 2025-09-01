@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "1359453bdd0a0e33e591d25b8b4eda97474be4267a69a199958b61a1c6795068"
+            "sha256": "5f51d61b4a0878a58932bd830f3fbc1d8830581ea19596ca6498b24111cccc63"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -629,6 +629,22 @@
         }
     },
     "develop": {
+        "asgiref": {
+            "hashes": [
+                "sha256:a5ab6582236218e5ef1648f242fd9f10626cfd4de8dc377db215d5d5098e3142",
+                "sha256:f3bba7092a48005b5f5bacd747d36ee4a5a61f4a269a6df590b43144355ebd2c"
+            ],
+            "markers": "python_version >= '3.9'",
+            "version": "==3.9.1"
+        },
+        "django": {
+            "hashes": [
+                "sha256:0745b25681b129a77aae3d4f6549b62d3913d74407831abaa0d9021a03954bae",
+                "sha256:2b2ada0ee8a5ff743a40e2b9820d1f8e24c11bac9ae6469cd548f0057ea6ddcd"
+            ],
+            "markers": "python_version >= '3.10'",
+            "version": "==5.2.5"
+        },
         "iniconfig": {
             "hashes": [
                 "sha256:3abbd2e30b36733fee78f9c7f7308f2d0050e88f0087fd25c2645f63c773e1c7",
@@ -636,6 +652,15 @@
             ],
             "markers": "python_version >= '3.8'",
             "version": "==2.1.0"
+        },
+        "model-bakery": {
+            "hashes": [
+                "sha256:107b3efb8889baac83cae0e2d81465903b69a70eeb99ecfd0929d959a653ab90",
+                "sha256:796e0b7fa6bf2acc09feaadce40c6bcc13e5b55c5bdff9f76e87ceb64f736070"
+            ],
+            "index": "tuna",
+            "markers": "python_version >= '3.8'",
+            "version": "==1.20.5"
         },
         "packaging": {
             "hashes": [
@@ -678,6 +703,14 @@
             "index": "tuna",
             "markers": "python_version >= '3.8'",
             "version": "==4.11.1"
+        },
+        "sqlparse": {
+            "hashes": [
+                "sha256:09f67787f56a0b16ecdbde1bfc7f5d9c3371ca683cfeaa8e6ff60b4807ec9272",
+                "sha256:cf2196ed3418f3ba5de6af7e82c694a9fbdbfecccdfc72e281548517081f16ca"
+            ],
+            "markers": "python_version >= '3.8'",
+            "version": "==0.5.3"
         }
     }
 }

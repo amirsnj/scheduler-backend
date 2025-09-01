@@ -18,6 +18,7 @@ django-cors-headers = "*"
 [dev-packages]
 pytest = "*"
 pytest-django = "*"
+model-bakery = "*"
 
 [requires]
 python_version = "3.13"
