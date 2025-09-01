@@ -14,6 +14,7 @@ drf-yasg = "*"
 psycopg2-binary = "*"
 django-filter = "*"
 django-cors-headers = "*"
+whitenoise = "*"
 
 [dev-packages]
 pytest = "*"

@@ -56,7 +56,7 @@ class TagSerializer(serializers.ModelSerializer):
                 **validated_data
             )
             return tag
-        except:
+        except IntegrityError:
             raise ValidationError({"detail": "The Tag is already exists."})
 
 
@@ -92,9 +92,6 @@ class TaskCreateSerializer(serializers.ModelSerializer):
 
         if request and hasattr(request, "user"):
             self.fields["category"].queryset = TaskCategory.objects.filter(user=request.user)
-
-
-
 
     def validate_category(self, value):
         if value is None:
