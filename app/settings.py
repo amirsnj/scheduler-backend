@@ -14,10 +14,26 @@ from pathlib import Path
 from datetime import timedelta
 import os
 
+#enviroment variables
+dev_secret_key = "django-insecure-ah(qcb796w3v@=_0(+4dx!a2a862hed6)--0cgjyx%x*oc07(l"
+os.environ.setdefault("SECRET_KEY", dev_secret_key)
+
+#database
+os.environ.setdefault("PGDATABASE", "scheduler_db")
+os.environ.setdefault("PGUSER", "postgres")
+os.environ.setdefault("PGPASSWORD", "password1234")
+os.environ.setdefault("PGHOST", "localhost")
+os.environ.setdefault("PGPORT", "5432")
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = Path(__file__).resolve().parent.parent
 
+DEBUG = True
+
+SECRET_KEY = os.environ["SECRET_KEY"]
+
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -48,6 +64,10 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+if DEBUG:
+    DEBUG_TOOLBAR_MIDDLEWARE = "debug_toolbar.middleware.DebugToolbarMiddleware"
+    MIDDLEWARE.insert(0, DEBUG_TOOLBAR_MIDDLEWARE)
 
 
 INTERNAL_IPS = [
@@ -97,6 +117,18 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ["PGDATABASE"],
+        'USER': os.environ["PGUSER"],
+        'PASSWORD': os.environ["PGPASSWORD"],
+        'HOST': os.environ["PGHOST"],
+        'PORT': os.environ["PGPORT"],
+    }
+}
 
 
 # Internationalization
