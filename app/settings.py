@@ -48,7 +48,6 @@ INSTALLED_APPS = [
     'corsheaders',
     'djoser',
     'django_filters',
-    'debug_toolbar',
     'core',
     'scheduler'
 ]
@@ -67,6 +66,7 @@ MIDDLEWARE = [
 
 if DEBUG:
     DEBUG_TOOLBAR_MIDDLEWARE = "debug_toolbar.middleware.DebugToolbarMiddleware"
+    INSTALLED_APPS.append("debug_toolbar")
     MIDDLEWARE.insert(0, DEBUG_TOOLBAR_MIDDLEWARE)
 
 
@@ -74,7 +74,10 @@ INTERNAL_IPS = [
     "127.0.0.1",
 ]
 
-CORS_ALLOWED_ORIGINS = os.getenv("CORS_ALLOWED_ORIGINS", "").split(",")
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:5173',
+    'http://127.0.0.1:5173',
+]
 
 ROOT_URLCONF = 'app.urls'
 
