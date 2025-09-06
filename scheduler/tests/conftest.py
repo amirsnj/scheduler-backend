@@ -4,9 +4,11 @@ import pytest
 
 User = get_user_model()
 
+
 @pytest.fixture
 def api_client():
     return APIClient()
+
 
 @pytest.fixture
 def authentication(api_client):
@@ -15,8 +17,9 @@ def authentication(api_client):
             username="user_test",
             email="user@example.com",
             password="password123",
-            is_staff=is_staff
+            is_staff=is_staff,
         )
         api_client.force_authenticate(user=user)
         return user
+
     return inner_function

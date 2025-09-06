@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scheduler', '0007_task_scheduler_t_user_id_dc5433_idx'),
+        ("scheduler", "0007_task_scheduler_t_user_id_dc5433_idx"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='tag',
-            name='title',
+            model_name="tag",
+            name="title",
             field=models.CharField(max_length=40),
         ),
         migrations.AlterUniqueTogether(
-            name='tag',
-            unique_together={('title', 'user')},
+            name="tag",
+            unique_together={("title", "user")},
         ),
     ]

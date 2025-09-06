@@ -16,6 +16,7 @@ django-filter = "*"
 django-cors-headers = "*"
 whitenoise = "*"
 gunicorn = "*"
+black = {git = "https://github.com/psf/black"}
 
 [dev-packages]
 pytest = "*"

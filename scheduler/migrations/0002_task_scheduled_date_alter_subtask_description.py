@@ -7,18 +7,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scheduler', '0001_initial'),
+        ("scheduler", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='task',
-            name='scheduled_date',
+            model_name="task",
+            name="scheduled_date",
             field=models.DateField(default=datetime.date.today),
         ),
         migrations.AlterField(
-            model_name='subtask',
-            name='description',
-            field=models.CharField(blank=True, default='', max_length=200),
+            model_name="subtask",
+            name="description",
+            field=models.CharField(blank=True, default="", max_length=200),
         ),
     ]

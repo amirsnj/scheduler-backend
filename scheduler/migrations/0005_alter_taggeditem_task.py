@@ -7,13 +7,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scheduler', '0004_rename_taggeditme_taggeditem'),
+        ("scheduler", "0004_rename_taggeditme_taggeditem"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='taggeditem',
-            name='task',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tags', to='scheduler.task'),
+            model_name="taggeditem",
+            name="task",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE,
+                related_name="tags",
+                to="scheduler.task",
+            ),
         ),
     ]

@@ -7,13 +7,15 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scheduler', '0006_alter_taggeditem_task'),
+        ("scheduler", "0006_alter_taggeditem_task"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddIndex(
-            model_name='task',
-            index=models.Index(fields=['user', 'scheduled_date'], name='scheduler_t_user_id_dc5433_idx'),
+            model_name="task",
+            index=models.Index(
+                fields=["user", "scheduled_date"], name="scheduler_t_user_id_dc5433_idx"
+            ),
         ),
     ]

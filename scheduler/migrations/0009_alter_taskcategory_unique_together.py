@@ -7,13 +7,13 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scheduler', '0008_alter_tag_title_alter_tag_unique_together'),
+        ("scheduler", "0008_alter_tag_title_alter_tag_unique_together"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AlterUniqueTogether(
-            name='taskcategory',
-            unique_together={('title', 'user')},
+            name="taskcategory",
+            unique_together={("title", "user")},
         ),
     ]

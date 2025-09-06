@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scheduler', '0003_remove_subtask_description'),
+        ("scheduler", "0003_remove_subtask_description"),
     ]
 
     operations = [
         migrations.RenameModel(
-            old_name='TaggedItme',
-            new_name='TaggedItem',
+            old_name="TaggedItme",
+            new_name="TaggedItem",
         ),
     ]

@@ -6,12 +6,12 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scheduler', '0011_alter_task_options'),
+        ("scheduler", "0011_alter_task_options"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='task',
+            name="task",
             options={},
         ),
     ]

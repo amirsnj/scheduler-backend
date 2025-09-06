@@ -16,60 +16,161 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Tag',
+            name="Tag",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=40, unique=True)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tags', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=40, unique=True)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tags",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Task',
+            name="Task",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=150)),
-                ('description', models.TextField(blank=True, default='', max_length=200)),
-                ('priority_level', models.CharField(choices=[('L', 'Low'), ('M', 'Medium'), ('H', 'High')], default='M', max_length=1)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('updated_at', models.DateTimeField(auto_now=True)),
-                ('dead_line', models.DateField(null=True, validators=[scheduler.validators.validate_date_not_past])),
-                ('is_completed', models.BooleanField(default=False)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='tasks', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=150)),
+                (
+                    "description",
+                    models.TextField(blank=True, default="", max_length=200),
+                ),
+                (
+                    "priority_level",
+                    models.CharField(
+                        choices=[("L", "Low"), ("M", "Medium"), ("H", "High")],
+                        default="M",
+                        max_length=1,
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                ("updated_at", models.DateTimeField(auto_now=True)),
+                (
+                    "dead_line",
+                    models.DateField(
+                        null=True,
+                        validators=[scheduler.validators.validate_date_not_past],
+                    ),
+                ),
+                ("is_completed", models.BooleanField(default=False)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="tasks",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='SubTask',
+            name="SubTask",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=150)),
-                ('description', models.TextField(blank=True, default='', max_length=200)),
-                ('is_completed', models.BooleanField(default=False)),
-                ('parent_task', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='subTasks', to='scheduler.task')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=150)),
+                (
+                    "description",
+                    models.TextField(blank=True, default="", max_length=200),
+                ),
+                ("is_completed", models.BooleanField(default=False)),
+                (
+                    "parent_task",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="subTasks",
+                        to="scheduler.task",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='TaskCategory',
+            name="TaskCategory",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=150)),
-                ('user', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='taskCategories', to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=150)),
+                (
+                    "user",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="taskCategories",
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='task',
-            name='category',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, to='scheduler.taskcategory'),
+            model_name="task",
+            name="category",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                to="scheduler.taskcategory",
+            ),
         ),
         migrations.CreateModel(
-            name='TaggedItme',
+            name="TaggedItme",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('tag', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='scheduler.tag')),
-                ('task', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='scheduler.task')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "tag",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="scheduler.tag"
+                    ),
+                ),
+                (
+                    "task",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="scheduler.task"
+                    ),
+                ),
             ],
             options={
-                'unique_together': {('tag', 'task')},
+                "unique_together": {("tag", "task")},
             },
         ),
     ]

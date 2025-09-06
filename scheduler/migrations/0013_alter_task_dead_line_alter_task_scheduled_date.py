@@ -8,18 +8,20 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('scheduler', '0012_alter_task_options'),
+        ("scheduler", "0012_alter_task_options"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='task',
-            name='dead_line',
-            field=models.DateField(null=True, validators=[scheduler.validators.validate_date_not_past]),
+            model_name="task",
+            name="dead_line",
+            field=models.DateField(
+                null=True, validators=[scheduler.validators.validate_date_not_past]
+            ),
         ),
         migrations.AlterField(
-            model_name='task',
-            name='scheduled_date',
+            model_name="task",
+            name="scheduled_date",
             field=models.DateField(default=datetime.date.today),
         ),
     ]
