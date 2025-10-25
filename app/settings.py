@@ -22,7 +22,7 @@ os.environ.setdefault("SECRET_KEY", dev_secret_key)
 os.environ.setdefault("PGDATABASE", "scheduler_db")
 os.environ.setdefault("PGUSER", "postgres")
 os.environ.setdefault("PGPASSWORD", "password1234")
-os.environ.setdefault("PGHOST", "localhost")
+os.environ.setdefault("PGHOST", "db")
 os.environ.setdefault("PGPORT", "5432")
 
 
