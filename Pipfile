@@ -17,6 +17,7 @@ django-cors-headers = "*"
 whitenoise = "*"
 gunicorn = "*"
 black = {git = "https://github.com/psf/black"}
+astral = "*"
 
 [dev-packages]
 pytest = "*"

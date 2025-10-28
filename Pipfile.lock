@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "51972d998785d21266c2c819a74f9df0adf8ac397a90983ca39bcfa49fbfb737"
+            "sha256": "79e19e9370ca296ee80057c41c4e59548623f0df1302581808dfa501711217db"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -23,6 +23,17 @@
             ],
             "markers": "python_version >= '3.9'",
             "version": "==3.9.1"
+        },
+        "astral": {
+            "hashes": [
+                "sha256:59767700408fe6b73133e8e141030bd6ba93e6d262c1c4e61edf635edf7333dd",
+                "sha256:9b7c3b412e9e69d172cfb24be0e6addcc9f1bd01a28db8bebe66d75ccc533d88",
+                "sha256:a29dc1b35edbba9d68562be6d6a8d270289daa7f9b65ab63bdd7574fcdef8f49",
+                "sha256:cb7b49a3f0d4c64ae666be131276d2a3226134c598db10e672028cf8ff855f83"
+            ],
+            "index": "tuna",
+            "markers": "python_version >= '3.7' and python_version < '4.0'",
+            "version": "==3.2"
         },
         "black": {
             "git": "https://github.com/psf/black",

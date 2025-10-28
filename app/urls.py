@@ -26,6 +26,7 @@ urlpatterns = [
     path("api/auth/", include("djoser.urls")),
     path("api/auth/", include("djoser.urls.jwt")),
     path("api/schedule/", include("scheduler.urls")),
+    path("api/planetary/", include("planetary_hours.urls"))
 ]
 
 
