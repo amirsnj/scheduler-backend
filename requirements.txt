@@ -1,0 +1,14 @@
+django
+djangorestframework
+django-debug-toolbar
+djoser
+djangorestframework-simplejwt
+drf-nested-routers
+drf-yasg
+psycopg2-binary
+django-filter
+django-cors-headers
+whitenoise
+gunicorn
+astral
+uvicorn
