@@ -74,6 +74,8 @@ class TaskSerializer(serializers.ModelSerializer):
             "priority_level",
             "scheduled_date",
             "dead_line",
+            "start_time",
+            "end_time",
             "is_completed",
             "subTasks",
             "updated_at",
@@ -90,7 +92,9 @@ class TaskCreateSerializer(serializers.ModelSerializer):
             "category",
             "priority_level",
             "scheduled_date",
-            "dead_line",
+            "start_time",
+            "end_time",
+            "dead_line"
         ]
 
     def __init__(self, *args, **kwargs):
@@ -118,11 +122,20 @@ class TaskCreateSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         scheduled_date = attrs.get("scheduled_date")
         dead_line = attrs.get("dead_line")
+        start_time = attrs.get("start_time")
+        end_time = attrs.get("end_time")
 
         if scheduled_date and dead_line and scheduled_date > dead_line:
             raise serializers.ValidationError(
                 {"detail": "Schedule date cannot be grater than deadline date."}
             )
+        
+        if start_time and end_time and start_time > end_time:
+            if dead_line and not scheduled_date < dead_line:
+                raise serializers.ValidationError(
+                    {"detail": "End time cannot be less than start time."}
+                )
+
 
         return attrs
 
@@ -137,6 +150,8 @@ class TaskUpdateSerializer(serializers.ModelSerializer):
             "priority_level",
             "scheduled_date",
             "dead_line",
+            "start_time",
+            "end_time",
             "is_completed",
         ]
 
@@ -155,11 +170,19 @@ class TaskUpdateSerializer(serializers.ModelSerializer):
     def validate(self, attrs):
         scheduled_date = attrs.get("scheduled_date")
         dead_line = attrs.get("dead_line")
+        start_time = attrs.get("start_time")
+        end_time = attrs.get("end_time")
 
         if scheduled_date and dead_line and scheduled_date > dead_line:
             raise serializers.ValidationError(
                 {"detail": "Schedule date cannot be grater than deadline date."}
             )
+        
+        if start_time and end_time and start_time > end_time:
+            if dead_line and not scheduled_date < dead_line:
+                raise serializers.ValidationError(
+                    {"detail": "End time cannot be less than start time."}
+                )
 
         return attrs
 
@@ -206,6 +229,8 @@ class FullTaskCreateSerializer(serializers.ModelSerializer):
             "category",
             "priority_level",
             "scheduled_date",
+            "start_time",
+            "end_time",
             "dead_line",
             "tags",
             "subTasks",
@@ -248,6 +273,8 @@ class OptimizedTaskUpdateSerializer(serializers.ModelSerializer):
             "priority_level",
             "scheduled_date",
             "dead_line",
+            "start_time",
+            "end_time",
             "is_completed",
             "tags",
             "subTasks",

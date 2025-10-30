@@ -1,7 +1,7 @@
 from django.db import models
 from django.conf import settings
 from scheduler.validators import validate_date_not_past
-from datetime import date
+from django.utils import timezone
 
 
 class TaskCategory(models.Model):
@@ -31,13 +31,15 @@ class Task(models.Model):
     ]
 
     title = models.CharField(max_length=150)
-    description = models.TextField(max_length=200, default="", blank=True)
+    description = models.TextField(default="", blank=True)
     category = models.ForeignKey(TaskCategory, on_delete=models.SET_NULL, null=True)
     priority_level = models.CharField(
         max_length=1, choices=PRIORITY_LEVEL_CHOICES, default=PRIORITY_LEVEL_MEDIUM
     )
-    scheduled_date = models.DateField(default=date.today)
+    scheduled_date = models.DateField(default=timezone.now)
     dead_line = models.DateField(null=True, validators=[validate_date_not_past])
+    start_time = models.TimeField(null=True, blank=True)
+    end_time = models.TimeField(null=True, blank=True)
     is_completed = models.BooleanField(default=False)
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="tasks"
