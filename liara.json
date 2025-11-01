@@ -1,0 +1,8 @@
+{
+"app":"scheduler-backend"
+"port":80
+"build":{
+"location":"iran"
+}
+"disks":[]
+}
